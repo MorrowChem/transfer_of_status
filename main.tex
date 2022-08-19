@@ -14,7 +14,7 @@
 \DeclareCaptionFont{blah}{\footnotesize\fontfamily{cmss}\selectfont}
 \captionsetup{font=blah}
 \usepackage{booktabs}
-\usepackage[print-unity-mantissa=false]{siunitx}
+\usepackage[print-unity-mantissa=false,range-phrase=--,range-units=single]{siunitx}
 % \usepackage[backgroundcolor=white,
 %             textsize=footnotesize,textwidth=2cm]{todonotes}
 \usepackage[backend=bibtex,style=chem-acs]{biblatex}
@@ -210,7 +210,7 @@ This is important to bound the region explored by a potential during its most co
 %
 % \subsection{Amorphous silicon}
 
-\subsection{Molybdenum Sulfides}
+\section{Molybdenum Sulfides}
 
 \subsubsection*{Crystalline \ce{MoS2}}
 The combination of speed and accuracy offered by ML potentials is most advantageous when applied to systems
@@ -264,7 +264,7 @@ be well-represented, instead of only \ce{A-A}. The possibility of charge-transfe
 It has been proposed that structure searching can be made more efficient when more than one scale of structure
 is present in a material by seeding searches with chemical building blocks.\autocite{Ahnert2017, Deringer2018c, Deringer2020}
 Using the example of boron: icosahedra can be linked in different ways to produce many near-degenerate crystal structures.
-Instead of trying to find the icosahedra from scratch during every search, the smaller configurational space of possible arrangements of icosahedral fragments can be explored
+Instead of trying to find the icosahedra from scratch during every search, the smaller configurational space of possible arrangements of entire icosahedral fragments can be explored
 much faster.
 
 A major aim of my DPhil research will be the development of heuristics and coding infrastructure for efficient multicomponent RSS,
@@ -273,8 +273,9 @@ both from structural repositories such as the Materials Project\autocite{Jain201
 
 \subsection*{Understanding amorphous structure}
 
-The combination of speed and quantum-mechanical accuracy allows us to make structural models of amorphous materials that are large enough to represent the disorder.
-Through conventional structural-chemical analysis and ML-based descriptors and atomic energies, my DPhil research aims to provide chemical insight into the principles and driving forces
+The combination of speed and quantum-mechanical accuracy allows us to make structural models of amorphous materials that are large enough for a faithful representation of the disorder and accurate on the local scale.
+Through, on the one hand, conventional structural-chemical analysis and, on the other, ML-based descriptors and atomic energies, 
+my DPhil research aims to provide chemical insight into the principles and driving forces
 behind amorphous structure and how we can link the structure to experimental measurements.
 
 \subsection*{Modelling \ce{MoS_x}}
@@ -283,21 +284,22 @@ Using the methodological developments described above, I aim to produce a genera
 This will be published openly for others to use in further research into the structures and applications of any material in the \ce{Mo-S} phase diagram.
     
 Once the potential is built and validated, I will use it to arrive at a realistic structural model of \textit{a}-\ce{MoS3}
-via MD simulations on unprecedentedly large length-scales and in tandem with new experimental diffraction data collected in collaboration with the Goodwin group.
-These structural models will subsequently serve as a foundation to understand its Lithium intercalation chemistry and ionic conductivity
+via MD simulations on unprecedentedly large length-scales and in tandem with new experimental diffraction data that I will collect in collaboration with the Goodwin group.
+These structural models could subsequently serve as a foundation to understand its Lithium intercalation chemistry and ionic conductivity
  via DFT in the context of battery cathode applications.
 
 %
 \chapter{Results and Discussion} \label{chap:theory}
 %
 \section{Indirect learning}
+{\vspace{-2.2em}  \begin{flushright} \small{\emph{(article accepted in J. Chem. Phys)}\autocite{Morrow2022}} \end{flushright}}
 
 Although GAP-based ML potentials are orders of magnitude faster than DFT, alternative ML fitting frameworks exist that are much faster still than GAP,
 such as that of the Moment Tensor Potentials (MTP).\autocite{Shapeev2016,Podryabinkin2017}
 However, these alternatives typically suffer from poorer extrapolation behaviour compared to GAP models for structures dissimilar to those encountered during training.\autocite{Rosenbrock2021}
-In this work, we use an accurate, but more computationally expensive GAP model to generate reference data (locations and labels) for a series of much faster MTP models (Morrow \emph{et al.}, Ref \cite{Morrow2022}).
+In this work, we use an accurate, but more computationally expensive GAP model to generate reference data (locations and labels) for a series of much faster MTP models.\autocite{Morrow2022}
 We refer to the idea of using one ML potential to train another with the goal of capturing the original DFT as ``indirect learning''. Figure\ \ref{fig:schematic} outlines the indirect learning concept;
-we use the notation $\mathrm{M'}$ for a directly-learned MTP, and $\mathrm{M''}$ for an indirectly-learned one. The ``teacher'' GAP model is taken from Ref.\ \cite{Bartok2018} and named GAP-18.
+we use the notation $\mathrm{M'}$ for a directly-learned MTP, and $\mathrm{M''}$ for an indirectly-learned one. The ``teacher'' GAP model is taken from Ref.\ \cite{Bartok2018}, namely GAP-18.
 
 \begin{figure}[ht]
   \includegraphics[width=0.6\linewidth]{schematic.pdf}
@@ -311,7 +313,7 @@ we use the notation $\mathrm{M'}$ for a directly-learned MTP, and $\mathrm{M''}$
   \textit{Right:}
   We now generate a much larger set of structures using \textbf{M1}, and label them using the same method (not \textbf{M0}!).
   This dataset, \textbf{D1}, covers a narrower structural space, but at more points.
-  A second fit is then made with a different ML method, \textbf{M2}.
+  A second fit is then made with a different ML method, \textbf{M2}. Adapted from Ref. \cite{Morrow2022}.
   }
   \label{fig:schematic}
 \end{figure}
@@ -328,7 +330,8 @@ we use the notation $\mathrm{M'}$ for a directly-learned MTP, and $\mathrm{M''}$
     is met with the good coverage provided by liquid and LDA structures in \textbf{D0}. 
     Equally, the high-pressure region is densely sampled with distorted $\beta$-Sn-type and simple hexagonal (sh) structures. 
     However, the \textbf{D0} coverage is distinctly sparse at intermediate pressures around \SI{10}{GPa}.
-    The sizes of data points are proportional to the number of atoms in the corresponding training structures, and hence to the number of forces that contribute to fitting.
+    The sizes of data points are proportional to the number of atoms in the corresponding training structures, and hence to the number of forces that contribute to fitting.  
+    Adapted from Ref. \cite{Morrow2022}.
   }
   \label{fig:soap_map}
 \end{figure}
@@ -340,11 +343,11 @@ including a simulation of vitrification and polycrystalline grain formation unde
 
 
 
-\subsection{Application to Silicon}
+\section{Application to Silicon}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.55\linewidth]{simplified_compression_series.png}
+  \includegraphics[width=0.5\linewidth]{simplified_compression_series.png}
   \caption{
     \textbf{(1)} A structural benchmark for high-pressure disordered Si.
     We evaluate the average SOAP similarity of the compression trajectory of Ref.\ \cite{Deringer2021} to selected crystalline structures.
@@ -362,15 +365,19 @@ including a simulation of vitrification and polycrystalline grain formation unde
   \label{fig:SOAP_difference}
 \end{figure}
 
-Figure\ \ref{fig:SOAP_difference} summarises the key result of our article.\autocite{Morrow2022} Working towards the aim of developing physically-guided methods to evaluate the performance of a potential,
+Figure\ \ref{fig:SOAP_difference} summarises the key result of our article.\autocite{Morrow2022} Working towards my aim of developing physically-guided methods to evaluate the performance of potentials,
 we use MD simulations with a constant pressure ramp to test whether the potential predicts the experimentally-confirmed series of Si phases.
 The SOAP descriptor, as well as functioning as a component of fitting ML potentials, can also be used to render large structural snapshots chemically interpretable.
 The SOAP kernel gives the similarity between two atomic environments on a scale from 0 (dissimilar) to 1 (identical up to rotations and translations); in Fig.\ \ref{fig:SOAP_difference} we compare snapshots
 from MD trajectories to simple-hexagonal and diamond crystalline phases. In a new development, by adjusting the external pressure experienced by the reference crystal, the comparison is made more
-consistent --- e.g. the low density amorphous (LDA) form of Si, which is most similar to diamond, remains at a constant similarity to diamond before the sudden structural collapse at \SI{12}{GPa}.
+consistent --- e.g. the low density amorphous (LDA) form of Si, which is most similar to diamond, remains at a constant similarity to diamond before the sudden structural collapse at \SI{12}{GPa}, 
+which reflects the fact that pressurisation results in a uniform contraction of bondlengths, without structural rearrangement, until the collapse.
+
 Overall, indirectly-learned MTPs perform much more reliably at the compression test than those directly fitted (to \textbf{D0}), 
 with every $\ind{M}_{L}$ model (a representative one is shown in Fig.\ \ref{fig:SOAP_difference})
 producing the expected sequence of phases, viz.\ LDA $\longrightarrow$ very-high-density amorphous (VHDA) $\longrightarrow$ polycrystalline (pc) sh.\autocite{Deringer2021}
+Additionally, the indirect MTPs were validated using numerical error measures and other physically-guided tests---including the production of high-quality models of low-density amorphous Si
+(see Table\ \ref{tab:LDA}, where the parent model, GAP-18, can be taken as a benchmark for the state-of-the art in modelling \emph{a}-Si).
 
 \begin{table}[ht]
   \centering
@@ -400,13 +407,11 @@ producing the expected sequence of phases, viz.\ LDA $\longrightarrow$ very-high
   \end{tabular}
   \end{table}
 
-Additionally, the indirect MTPs were validated using numerical error measures and other physically-guided tests---including the production of high-quality models of low-density amorphous Si
-(see Table\ \ref{tab:LDA}, where the parent model, GAP-18, can be taken as a benchmark for the state-of-the art in modelling \emph{a}-Si.)
 
 \section{Taxonomy of defects in Silicon}
-{\vspace{-2.2em}  \begin{flushright} \small{\emph{manuscript in preparation}} \end{flushright}}
+{\vspace{-2.2em}  \begin{flushright} \small{\emph{(manuscript in preparation)}} \end{flushright}}
 
-The indirect MTPs achieve around a 1000-fold acceleration in the computational time required to run MD, whilst maintaining almost the same quality in their description of the PES compared to GAP-18.
+The indirect MTPs achieve around a 1000-fold acceleration in the computational time required to run MD compared to GAP-18, whilst maintaining almost the same quality in their description of the PES.
 The access to longer lengthscales and timescales enables us to study in detail the structure of coordination defects,
 which are embedded at the \SIrange{1}{2}{\%} level in a predominately fourfold-coordinated random network. The decomposition of the total energy into atomic contributions provides a handle with which 
 to analyse defect stability and formation. The extent to which ML atomic energies, which are not a quantum-mechanical observables, are chemically meaningful is an open question in the field.
@@ -422,7 +427,7 @@ We aim to link these local energies to conventional structural measures to advan
   dashed lines exclude coordination defects and their neighbouring atoms.
   Pink shading denotes the region of energy consistent with experiments.\autocite{Roorda1991}
   %
-  \textbf{(c)} Structure factors for varying quench rate and compared to experiments.\autocite{Laaziri1999,Xie2013}
+  \textbf{(c)} Structure factors for varying quench rate compared to experiments.\autocite{Laaziri1999,Xie2013}
   }
   \label{fig:defects1}
 \end{figure}
@@ -457,7 +462,7 @@ However, the majority of the stabilisation gained by slower quenching is associa
 which is evidenced by the near parallel decrease of the non-defective atomic energies with quench rate compared to the total atomic energies.
 
 Figure\ \ref{fig:defects2} illustrates the results of a local analysis of the structure of defects. 
-Histograms are left unsmoothed throughout, which emphasises the high level of statistical significance available due to the large system size.
+Histograms are left unsmoothed throughout, which emphasises the high level of statistical significance available to us due to the large system size.
 In Fig.\ \ref{fig:defects2}a, as coordination number lowers, so do the typical distances between bonded atoms---as is widely observed throughout structural chemistry.
 The definitive \nth{5} peak and even spacing between peaks for the 5-fold distribution indicate that a majority of such defects are best described as `truly' 5-coordinate, rather than [4+1]. 
 The longer tail in the \nth{5} peak contains the minority of distant \nth{5} neighbours. 
@@ -469,9 +474,8 @@ The structural disturbance associated with these defects persists to the next-ne
 which have a significantly lower mean angle and broader distribution than that of the bulk.
 
 Although the majority of defects present as isolated over- or under-coordinated atoms, there is a stronger tendency for 5-fold atoms to occur together than can be expected from random placement of defects.
-3-folds are much more likely to be isolated. The energy distributions of Fig.\ \ref{fig:defects2}d show that clustering reduces the average excess energy associated with the defect atoms and their immediate neighbours
-in a manner akin to reducing surface tension by minimising interfacial area. This is consistent defects having an extended range, where strain is induced in the structure surrounding the core, which is
-visible in both the distances/angles and local energetics.
+3-folds are much more likely to be isolated. The energy distributions of Fig.\ \ref{fig:defects2}d show that clustering reduces the average excess energy associated with the defect atoms and their immediate neighbours---in a manner akin to reducing surface tension by minimising interfacial area. This is consistent defects having an extended range, where strain is induced in the structure surrounding the core, which is
+visible in both the angles distributions and local energetics.
 
 
 % \section{Synthesis and characterisation of \emph{a}-\ce{MoS3}}
@@ -489,9 +493,12 @@ visible in both the distances/angles and local energetics.
 
 \section{Modelling of a-\ce{MoS3}}
 
-With assistance from Dr. Simon Cassidy (Clarke group), we have carried out trial syntheses of \textit{a}-\ce{MoS3} via thermal decomposition of \ce{(NH4)_2MoS4} under argon. Characterisation via Raman spectroscopy, powder diffraction, and ICP-MS
-is continuing (currently in early stages). We have been awarded beam time for the POLARIS instrument at ISIS to collect neutron total scattering data. With the corresponding X-ray data to provide contrast between Mo and S, we plan to have
-a high-quality experiemental pair-distribution function, against which we can directly compare large-scale structural models produced via ML-driven simulations.
+With assistance from Dr.\ Simon Cassidy (Clarke group), we have carried out trial syntheses of \textit{a}-\ce{MoS3} via thermal decomposition of \ce{(NH4)_2MoS4} under argon. 
+Characterisation via Raman spectroscopy, powder diffraction, and ICP-MS
+is continuing (currently in early stages). 
+We have been awarded beam time for the POLARIS instrument at ISIS to collect neutron total scattering data. 
+With the corresponding X-ray data to provide contrast between Mo and S, we plan to derive
+a high-quality experimental pair-distribution function, against which we can directly compare large-scale structural models produced via ML-driven simulations.
 
 
 On the modelling side, I have developed a GAP-RSS framework in \texttt{Python}, which will make publically available after testing later in the DPhil. I am beginning to apply this framework to building a potential for the Mo--S phase diagram.
@@ -501,18 +508,18 @@ Early version of the potential are showing encouraging results in MD simulations
   \centering
   \includegraphics[width=0.7\linewidth]{MoS2.pdf}
   \caption{
-    Snapshot from a 1000-atom melt-quench simulation of \ce{MoS2}, driven by an early RSS-based GAP model. Poorly-crystalline, intergrown layers of \ce{[MoS6] trigonal prisms can be observed.}
+    Snapshot from a 1000-atom melt-quench simulation of \ce{MoS2}, driven by an early RSS-based GAP model. Poorly-crystalline, intergrown layers of \ce{[MoS6]} trigonal prisms can be observed.
     }
   \label{fig:MoS2}
 \end{figure}
 
 In future work, I will develop a series of chemically-motivated tests
  for the potential, for example the layer exfoliation energy, layer-slipping, and layer-twisting barriers. 
- These will form an important part of validating the predictions of the potential. 
- I will also use such test, along with numerical error measures,
+ These will form an important part of validating the potential. 
+ I will also use such tests, along with numerical error measures,
  in a study of the effect of the GAP-RSS design choices on the kind of structures searched, and the performance of resulting potentials. 
  At this stage, introducing fragment-based seeding of searches and more advanced structure selection algorithms will
- provide further opportunities to tune the search.
+ provide further opportunities to tune the RSS.
 
  With a high-quality \ce{MoS_x} potential constructed, I will move on to large-scale modelling of \ce{MoS3}, which may require methods beyond simple MD, such as enhanced sampling, 
 
@@ -521,7 +528,7 @@ In future work, I will develop a series of chemically-motivated tests
 
 In collaboration with other members of the Deringer group, I plan to apply the concept of indirect learning, which we established works well for Si, to other accurate but expensive GAP models, such as the general-purpose phosphorus potential
 of Ref.\ \cite{Deringer2020} and the Ge-Sb-Te (GST) potential of Ref.\ \cite{Zhou2022} for phase-change materials. If successful, the accelerated versions of these potentials will enable, for example, a more detailed study of the liquid--liquid phase
-transition of phosphorus, and device-scale simulations of repeated switching between amorphous and crystalline phases of GST.
+transition of phosphorus, and device-scale simulations of repeated switching between amorphous and crystalline phases for GST.
 
 %\endgroup
 
@@ -561,9 +568,12 @@ transition of phosphorus, and device-scale simulations of repeated switching bet
   \item 06/05/22; John Cattermull (Oxford); Prussian blue analogues for K-ion batteries: a complex structural challenge
   \item 16/06/22; Prof. Jarad Mason (Havard); Manipulating Phase Transitions and Porosity in Metal–Organic Materials: From Solid Refrigerants to Microporous Water
   \item 22/06/2022; Prof. Sebastian Henke (TU Dortmund); Responsive and glassy metal-organic frameworks
+  \item GAP Developers' and Users' Meeting, Helsinki, Finland (talk given, 4-9 Aug 2022)
+  \item Psi-K Conference, Lausanne, Switzerland (poster given, 22-25 Aug 2022)
+  \item DPG Spring Meeting, Condensed Matter Section, Regensburg, Germany (talk given, 4-9 Sep 2022)
 \end{itemize}
 
-GAP Developers' and Users' Meeting, Helsinki, Finland (4-9 Aug 2022)
+
 
 \section*{MPLS Graduate School courses}
 \begin{itemize}
