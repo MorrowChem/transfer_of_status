@@ -9,6 +9,7 @@
 \usepackage{multirow, mathrsfs, nth, graphicx, amsmath}
 \usepackage{helvet}
 \usepackage{caption}
+\usepackage{pdfpages}
 
 % \DeclareCaptionFont{blah}{\footnotesize\fontfamily{\sfdefault}\selectfont}
 \DeclareCaptionFont{blah}{\footnotesize\fontfamily{cmss}\selectfont}
@@ -19,7 +20,8 @@
 %             textsize=footnotesize,textwidth=2cm]{todonotes}
 \usepackage[backend=bibtex,style=chem-acs]{biblatex}
 \addbibresource{references.bib}
-\renewcommand*{\bibfont}{\footnotesize}
+\renewcommand*{\bibfont}{\normalfont\scriptsize}
+% \renewcommand*{\bibfont}{\normalfont\tiny}
 %\AtBeginBibliography{\vspace*{-1cm}}
 
 \newcommand{\ind}[1]{\mathrm{#1''\!\!}}
@@ -536,6 +538,7 @@ transition of phosphorus, and device-scale simulations of repeated switching bet
 %
 % \setlength{\baselineskip}{0pt}
 % \renewcommand{\abovechapterskip}{\vspace*{-10pt}}
+
 \printbibliography
 
 %
@@ -590,5 +593,9 @@ transition of phosphorus, and device-scale simulations of repeated switching bet
   \item Supervision of Part II student and two TMCS MSc students
   \item Teaching \nth{2}-year Inorganic Chemistry course to Magdalen College students (starting academic year 2022-2023)
 \end{itemize}
+
+\clearpage
+
+\includepdf[pages=-]{GSO.2 MPLS_Joe Morrow_completed.pdf}
 
 \end{document}
